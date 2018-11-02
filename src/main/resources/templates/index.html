@@ -21,44 +21,111 @@
     <div class="jumbotron" style="text-align: center;">
         <h1>Config Flume Agent</h1>
     </div>
-    <form class="form" th:object="${execSourceModel}" method="post" th:action="@{/sys/download}">
-        <div id="content1" style="text-align: center;">
-            <h3>Choose Source:</h3>
-            <div class="btn-group">
-                <button type="button" class="btn btn-primary">Exec Source</button>
-                <button type="button" class="btn btn-primary">Http Source</button>
+    <div id="content1" style="text-align: center;">
+        <h3>Choose Source:</h3>
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#menu1">Exec Source</a></li>
+            <li><a data-toggle="tab" href="#menu2">Http Source</a></li>
+            <li><a data-toggle="tab" href="#menu3">SomeThing Source</a></li>
+        </ul>
+        <br>
+        <br>
+        <br>
+        <div class="tab-content">
+
+            <div id="menu1" class="tab-pane fade in active">
+                <form class="form" th:object="${execSourceModel}" method="post" th:action="@{/sys/download}">
+                    <div id="content2">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">Link URL file log :</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" th:field="*{urlFile}"
+                                       placeholder="Enter url File">
+                            </div>
+                            <br>
+                            <br>
+                            <br>
+                            <label class="control-label col-sm-2">Topic Name :</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" th:field="*{topic}"
+                                       placeholder="Enter Topic Name">
+                            </div>
+                            <br>
+                            <br>
+                            <br>
+                            <label class="control-label col-sm-2">IP - Port Adress Kafka :</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" th:field="*{uriKafka}"
+                                       placeholder="10.22.40.111:9092">
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <div style="text-align: center;">
+                        <button style="margin-right: 50px;" type="button" class="btn btn-danger">Clear</button>
+                        <button type="submit" class="btn btn-success">Confirm</button>
+                    </div>
+                </form>
             </div>
-        </div>
-        <br>
-        <div id="content2">
-            <div class="form-group">
-                <label class="control-label col-sm-2">Link URL file log :</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" th:field="*{urlFile}" placeholder="Enter url File">
-                </div>
-                <br>
-                <br>
-                <br>
-                <label class="control-label col-sm-2">Topic Name :</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" th:field="*{topic}" placeholder="Enter Topic Name">
-                </div>
-                <br>
-                <br>
-                <br>
-                <label class="control-label col-sm-2">IP - Port Adress Kafka :</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" th:field="*{uriKafka}" placeholder="10.22.40.111:9092">
-                </div>
+
+            <div id="menu2" class="tab-pane fade">
+                <form class="form" th:object="${execSourceModel}" method="post" action="#">
+                    <div id="home" class="tab-pane fade in active">
+                        <div id="content3">
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">Port :</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" th:field="*{urlFile}"
+                                           placeholder="Enter Port">
+                                </div>
+                                <br>
+                                <br>
+                                <br>
+                                <label class="control-label col-sm-2">Topic Name Http :</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" th:field="*{topic}"
+                                           placeholder="Enter Topic Name">
+                                </div>
+                                <br>
+                                <br>
+                                <br>
+                                <label class="control-label col-sm-2">IP - Port Adress Kafka :</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" th:field="*{uriKafka}"
+                                           placeholder="10.22.40.111:9092">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <div style="text-align: center;">
+                        <button style="margin-right: 50px;" type="button" class="btn btn-danger">Clear</button>
+                        <button type="submit" class="btn btn-success">Confirm</button>
+                    </div>
+                </form>
             </div>
+
+            <div id="menu3" class="tab-pane fade">
+                <form class="form" th:object="${execSourceModel}" method="post" action="#">
+                    <p>Sone Thing Source</p>
+                    <br>
+                    <br>
+                    <br>
+                    <div style="text-align: center;">
+                        <button style="margin-right: 50px;" type="button" class="btn btn-danger">Clear</button>
+                        <button type="submit" class="btn btn-success">Confirm</button>
+                    </div>
+                </form>
+            </div>
+
         </div>
-        <br>
-        <br>
-        <div style="text-align: center;">
-            <button style="margin-right: 50px;" type="button" class="btn btn-danger">Clear</button>
-            <button type="submit" class="btn btn-success">Confirm</button>
-        </div>
-    </form>
+    </div>
+
+
 </div>
 </body>
 

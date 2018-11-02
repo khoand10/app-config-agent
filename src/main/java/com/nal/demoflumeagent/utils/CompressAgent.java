@@ -7,8 +7,8 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 public class CompressAgent {
-    public static final String OUTPUT_ZIP_FILE = "/Users/Khoand/Documents/nal/1/demo-flume-agent/agent.zip";
-    public static final String SOURCE_FOLDER = "/Users/Khoand/Documents/nal/1/demo-flume-agent/apache-flume-1.8.0-bin";
+    public static final String OUTPUT_ZIP_FILE = "./agent.zip";
+    public static final String SOURCE_FOLDER = "./apache-flume-1.8.0-bin";
     public static final byte[] BUFFER = new byte[1024];
 
 //    public static void main(String[] args) {
