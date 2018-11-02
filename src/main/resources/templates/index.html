@@ -39,7 +39,7 @@
                         <div class="form-group">
                             <label class="control-label col-sm-2">Link URL file log :</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" th:field="*{urlFile}"
+                                <input type="text" class="form-control" id="urlFile" th:field="*{urlFile}"
                                        placeholder="Enter url File">
                             </div>
                             <br>
@@ -47,7 +47,7 @@
                             <br>
                             <label class="control-label col-sm-2">Topic Name :</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" th:field="*{topic}"
+                                <input type="text" class="form-control" id="topicKafka" th:field="*{topic}"
                                        placeholder="Enter Topic Name">
                             </div>
                             <br>
@@ -55,7 +55,7 @@
                             <br>
                             <label class="control-label col-sm-2">IP - Port Adress Kafka :</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" th:field="*{uriKafka}"
+                                <input type="text" class="form-control" id="uriKafka" th:field="*{uriKafka}"
                                        placeholder="10.22.40.111:9092">
                             </div>
                         </div>
@@ -64,7 +64,9 @@
                     <br>
                     <br>
                     <div style="text-align: center;">
-                        <button style="margin-right: 50px;" type="button" class="btn btn-danger">Clear</button>
+                        <button style="margin-right: 50px;" type="button" class="btn btn-danger" onclick="clearText()">
+                            Clear
+                        </button>
                         <button type="submit" class="btn btn-success">Confirm</button>
                     </div>
                 </form>
@@ -77,7 +79,7 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-2">Port :</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" th:field="*{urlFile}"
+                                    <input type="text" class="form-control" id="port" th:field="*{urlFile}"
                                            placeholder="Enter Port">
                                 </div>
                                 <br>
@@ -85,7 +87,7 @@
                                 <br>
                                 <label class="control-label col-sm-2">Topic Name Http :</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" th:field="*{topic}"
+                                    <input type="text" class="form-control" id="topic" th:field="*{topic}"
                                            placeholder="Enter Topic Name">
                                 </div>
                                 <br>
@@ -93,7 +95,7 @@
                                 <br>
                                 <label class="control-label col-sm-2">IP - Port Adress Kafka :</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" th:field="*{uriKafka}"
+                                    <input type="text" class="form-control" id="uri" th:field="*{uriKafka}"
                                            placeholder="10.22.40.111:9092">
                                 </div>
                             </div>
@@ -103,7 +105,9 @@
                     <br>
                     <br>
                     <div style="text-align: center;">
-                        <button style="margin-right: 50px;" type="button" class="btn btn-danger">Clear</button>
+                        <button style="margin-right: 50px;" type="button" onclick="clearText()" class="btn btn-danger">
+                            Clear
+                        </button>
                         <button type="submit" class="btn btn-success">Confirm</button>
                     </div>
                 </form>
@@ -127,6 +131,19 @@
 
 
 </div>
+
+<script>
+    function clearText() {
+        document.getElementById('urlFile').value = '';
+        document.getElementById('topicKafka').value = '';
+        document.getElementById('uriKafka').value = '';
+
+        document.getElementById('port').value = '';
+        document.getElementById('topic').value = '';
+        document.getElementById('uri').value = '';
+
+    }
+</script>
 </body>
 
 </html>
