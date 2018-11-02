@@ -12,7 +12,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style>
-
+        p {
+            text-align: left;
+            color: red;
+        }
     </style>
 </head>
 
@@ -34,13 +37,15 @@
         <div class="tab-content">
 
             <div id="menu1" class="tab-pane fade in active">
-                <form class="form" th:object="${execSourceModel}" method="post" th:action="@{/sys/download}">
+                <form class="form" th:object="${execSourceModel}" method="post" th:action="@{/sys/download}"
+                      onsubmit="return checkValidate()">
                     <div id="content2">
                         <div class="form-group">
                             <label class="control-label col-sm-2">Link URL file log :</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="urlFile" th:field="*{urlFile}"
                                        placeholder="Enter url File">
+                                <p id="urlFile_error"></p>
                             </div>
                             <br>
                             <br>
@@ -49,6 +54,7 @@
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="topicKafka" th:field="*{topic}"
                                        placeholder="Enter Topic Name">
+                                <p id="topicKafka_error"></p>
                             </div>
                             <br>
                             <br>
@@ -57,6 +63,7 @@
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="uriKafka" th:field="*{uriKafka}"
                                        placeholder="10.22.40.111:9092">
+                                <p id="uriKafka_error"></p>
                             </div>
                         </div>
                     </div>
@@ -73,7 +80,8 @@
             </div>
 
             <div id="menu2" class="tab-pane fade">
-                <form class="form" th:object="${execSourceModel}" method="post" action="#">
+                <form class="form" th:object="${execSourceModel}" method="post" action="#"
+                      onsubmit="return checkValidate1()">
                     <div id="home" class="tab-pane fade in active">
                         <div id="content3">
                             <div class="form-group">
@@ -81,6 +89,7 @@
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" id="port" th:field="*{urlFile}"
                                            placeholder="Enter Port">
+                                    <p id="port_error"></p>
                                 </div>
                                 <br>
                                 <br>
@@ -89,6 +98,7 @@
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" id="topic" th:field="*{topic}"
                                            placeholder="Enter Topic Name">
+                                    <p id="topic_error"></p>
                                 </div>
                                 <br>
                                 <br>
@@ -97,6 +107,7 @@
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" id="uri" th:field="*{uriKafka}"
                                            placeholder="10.22.40.111:9092">
+                                    <p id="uri_error"></p>
                                 </div>
                             </div>
                         </div>
@@ -131,7 +142,6 @@
 
 
 </div>
-
 <script>
     function clearText() {
         document.getElementById('urlFile').value = '';
@@ -141,9 +151,91 @@
         document.getElementById('port').value = '';
         document.getElementById('topic').value = '';
         document.getElementById('uri').value = '';
-
     }
+
+    var pattern = /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\:\d{1,5}/;
+
+    function checkValidate() {
+        var urlFile = document.getElementById("urlFile");
+        var urlFile_error = document.getElementById("urlFile_error");
+        if (urlFile.value == "") {
+            urlFile.focus();
+            urlFile.style.border = "1px solid red";
+            urlFile_error.innerHTML = "Field Is Not Null";
+            return false;
+        } else {
+            urlFile.style.border = "";
+            urlFile_error.innerHTML = "";
+        }
+
+        var topicKafka = document.getElementById("topicKafka");
+        var topicKafka_error = document.getElementById("topicKafka_error");
+        if (topicKafka.value == "") {
+            topicKafka.focus();
+            topicKafka.style.border = "1px solid red";
+            topicKafka_error.innerHTML = "Field Is Not Null";
+            return false;
+        } else {
+            topicKafka.style.border = "";
+            topicKafka.innerHTML = "";
+        }
+
+        var uriKafka = document.getElementById("uriKafka");
+        var uriKafka_error = document.getElementById("uriKafka_error");
+        var OK = pattern.exec(uriKafka.value);
+        if (!OK) {
+            uriKafka.focus();
+            uriKafka.style.border = "1px solid red";
+            uriKafka_error.innerHTML = "IP Port isValid, must format IP:Host";
+            return false;
+        } else {
+            uriKafka.style.border = "";
+            uriKafka_error.innerHTML = "";
+        }
+    }
+
+    function checkValidate1() {
+
+        var port = document.getElementById("port");
+        var port_error = document.getElementById("port_error");
+        var pattern1 = /\d/;
+        var OK_port = pattern1.exec(port.value);
+        if (!OK_port) {
+            port.focus();
+            port.style.border = "1px solid red";
+            port_error.innerHTML = "Port Must Be Number";
+            return false;
+        } else {
+            port.style.border = "";
+            port_error.innerHTML = "";
+        }
+
+        var topic = document.getElementById("topic");
+        var topic_error = document.getElementById("topic_error");
+        if (topic.value == "") {
+            topic.focus();
+            topic.style.border = "1px solid red";
+            topic_error.innerHTML = "Field Is Not Null";
+            return false;
+        } else {
+            topic.style.border = "";
+            topic_error.innerHTML = "";
+        }
+
+        var uri = document.getElementById("uri");
+        var uri_error = document.getElementById("uri_error");
+        var OK_uri = pattern.exec(uri.value);
+        if (!OK_uri) {
+            uri.focus();
+            uri.style.border = "1px solid red";
+            uri_error.innerHTML = "IP Port isValid, Must Format IP:Host";
+            return false;
+        } else {
+            uri.style.border = "";
+            uri_error.innerHTML = "";
+        }
+    }
+
 </script>
 </body>
-
 </html>
