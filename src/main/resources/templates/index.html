@@ -34,7 +34,7 @@
         <div class="tab-content">
 
             <div id="menu1" class="tab-pane fade in active">
-                <form class="form" th:object="${execSourceModel}" method="post" th:action="@{/sys/download}">
+                <form class="form" th:object="${execSourceModel}" method="post" th:action="@{/sys/download/exec}">
                     <div id="content2">
                         <div class="form-group">
                             <label class="control-label col-sm-2">Link URL file log :</label>
@@ -71,13 +71,13 @@
             </div>
 
             <div id="menu2" class="tab-pane fade">
-                <form class="form" th:object="${execSourceModel}" method="post" action="#">
+                <form class="form" th:object="${httpSourceModel}" method="post" th:action="@{/sys/download/http}">
                     <div id="home" class="tab-pane fade in active">
                         <div id="content3">
                             <div class="form-group">
                                 <label class="control-label col-sm-2">Port :</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" th:field="*{urlFile}"
+                                    <input type="text" class="form-control" th:field="*{port}"
                                            placeholder="Enter Port">
                                 </div>
                                 <br>
