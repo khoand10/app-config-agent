@@ -37,7 +37,8 @@
         <div class="tab-content">
 
             <div id="menu1" class="tab-pane fade in active">
-                <form class="form" th:object="${execSourceModel}" method="post" th:action="@{/sys/download}"
+
+                <form class="form" th:object="${execSourceModel}" method="post" th:action="@{/sys/download/exec}"
                       onsubmit="return checkValidate()">
                     <div id="content2">
                         <div class="form-group">
@@ -80,14 +81,14 @@
             </div>
 
             <div id="menu2" class="tab-pane fade">
-                <form class="form" th:object="${execSourceModel}" method="post" action="#"
+                <form class="form" th:object="${httpSourceModel}" method="post" th:action="@{/sys/download/http}"
                       onsubmit="return checkValidate1()">
                     <div id="home" class="tab-pane fade in active">
                         <div id="content3">
                             <div class="form-group">
                                 <label class="control-label col-sm-2">Port :</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="port" th:field="*{urlFile}"
+                                    <input type="text" class="form-control" id="portHttp" th:field="*{port}"
                                            placeholder="Enter Port">
                                     <p id="port_error"></p>
                                 </div>
@@ -177,7 +178,7 @@
             return false;
         } else {
             topicKafka.style.border = "";
-            topicKafka.innerHTML = "";
+            topicKafka_error.innerHTML = "";
         }
 
         var uriKafka = document.getElementById("uriKafka");
@@ -196,17 +197,15 @@
 
     function checkValidate1() {
 
-        var port = document.getElementById("port");
+        var portHttp = document.getElementById("portHttp");
         var port_error = document.getElementById("port_error");
-        var pattern1 = /\d/;
-        var OK_port = pattern1.exec(port.value);
-        if (!OK_port) {
-            port.focus();
-            port.style.border = "1px solid red";
+        if (!isNumeric(portHttp.value)) {
+            portHttp.focus();
+            portHttp.style.border = "1px solid red";
             port_error.innerHTML = "Port Must Be Number";
             return false;
         } else {
-            port.style.border = "";
+            portHttp.style.border = "";
             port_error.innerHTML = "";
         }
 
@@ -234,6 +233,10 @@
             uri.style.border = "";
             uri_error.innerHTML = "";
         }
+    }
+
+    function isNumeric(n) {
+        return !isNaN(parseFloat(n)) && isFinite(n);
     }
 
 </script>
