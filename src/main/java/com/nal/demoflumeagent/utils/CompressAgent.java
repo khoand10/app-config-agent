@@ -11,12 +11,6 @@ public class CompressAgent {
     public static final String SOURCE_FOLDER = "./apache-flume-1.8.0-bin";
     public static final byte[] BUFFER = new byte[1024];
 
-//    public static void main(String[] args) {
-//        File outputZipFile = new File(OUTPUT_ZIP_FILE);
-//        File inputDir = new File(SOURCE_FOLDER);
-//        zipDirectory(inputDir, outputZipFile);
-//    }
-
     public void zipDirectory() {
         File outputZipFile = new File(OUTPUT_ZIP_FILE);
         File inputDir = new File(SOURCE_FOLDER);
@@ -31,20 +25,17 @@ public class CompressAgent {
 
             List<File> allFiles = listChildFiles(inputDir);
 
-            // Tạo đối tượng ZipOutputStream để ghi file zip.
             fos = new FileOutputStream(outputZipFile);
             zipOs = new ZipOutputStream(fos);
             for (File file : allFiles) {
                 String filePath = file.getAbsolutePath();
 
-                //System.out.println("Zipping " + filePath);
-                // entryName: is a relative path.
                 String entryName = filePath.substring(inputDirPath.length() + 1);
 
                 ZipEntry ze = new ZipEntry(entryName);
-                // Thêm entry vào file zip.
+
                 zipOs.putNextEntry(ze);
-                // Đọc dữ liệu của file và ghi vào ZipOutputStream.
+
                 FileInputStream fileIs = new FileInputStream(filePath);
 
                 int len;

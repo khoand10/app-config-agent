@@ -44,12 +44,11 @@ public class ConfigFlume {
                 content += line + "\n";
             }
         }
-        //System.out.println("new data>>>>\n"+content);
         write(fileName, content);
-        write(exec, Flume.httpRun);
+        write(exec, Flume.execRun);
     }
 
-    public void configHttpSource (HttpSourceModel httpSourceModel) {
+    public void configHttpSource(HttpSourceModel httpSourceModel) {
         String data = "";
         String content = "";
         String fileName = "./apache-flume-1.8.0-bin/conf/http.conf";
@@ -79,12 +78,11 @@ public class ConfigFlume {
                 content += line + "\n";
             }
         }
-        //System.out.println("new data>>>>\n"+content);
         write(fileName, content);
         write(exec, Flume.httpRun);
     }
 
-    public void clear(String fileName, String defaul){
+    public void clear(String fileName, String defaul) {
         write(fileName, defaul);
     }
 
