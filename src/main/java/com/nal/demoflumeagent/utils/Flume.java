@@ -40,7 +40,7 @@ public class Flume {
             "a1.sinks.sink1.batchSize = 100\n" +
             "a1.sinks.sink1.channel = channel1\n";
 
-    public static String execRun = "bin/flume-ng agent --conf conf --conf-file conf/exec.conf  -Dflume.root.logger=DEBUG,console --name a1 -Xmx512m -Xms256m";
-    public static String httpRun = "bin/flume-ng agent --conf conf --conf-file conf/http.conf  -Dflume.root.logger=DEBUG,console --name a1 -Xmx512m -Xms256m";
+    public static String execRun = "./bin/flume-ng agent --conf conf --conf-file conf/exec.conf  -Dflume.root.logger=DEBUG,console --name a1 -Xmx512m -Xms256m";
+    public static String httpRun = "./bin/flume-ng agent --conf conf --conf-file conf/http.conf  -Dflume.root.logger=DEBUG,console --name a1 -Xmx512m -Xms256m";
 
 }

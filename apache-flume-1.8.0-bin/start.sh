@@ -1,1 +1,1 @@
-bin/flume-ng agent --conf conf --conf-file conf/http.conf  -Dflume.root.logger=DEBUG,console --name a1 -Xmx512m -Xms256m
+./bin/flume-ng agent --conf conf --conf-file conf/exec.conf  -Dflume.root.logger=DEBUG,console --name a1 -Xmx512m -Xms256m
