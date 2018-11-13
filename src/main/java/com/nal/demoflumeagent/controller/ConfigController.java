@@ -2,6 +2,7 @@ package com.nal.demoflumeagent.controller;
 
 import com.nal.demoflumeagent.model.ExecSourceModel;
 import com.nal.demoflumeagent.model.HttpSourceModel;
+import com.nal.demoflumeagent.model.NetworkSourceModel;
 import com.nal.demoflumeagent.utils.CompressAgent;
 import com.nal.demoflumeagent.utils.ConfigFlume;
 import org.springframework.core.io.InputStreamResource;
@@ -32,9 +33,11 @@ public class ConfigController {
     public ModelAndView getConfig() {
         ExecSourceModel execSourceModel = new ExecSourceModel();
         HttpSourceModel httpSourceModel = new HttpSourceModel();
+        NetworkSourceModel networkSourceModel = new NetworkSourceModel();
         ModelAndView modelAndView = new ModelAndView("index");
         modelAndView.addObject("execSourceModel", execSourceModel);
         modelAndView.addObject("httpSourceModel", httpSourceModel);
+        modelAndView.addObject("networkSourceModel", networkSourceModel);
         return modelAndView;
     }
 
@@ -64,6 +67,27 @@ public class ConfigController {
     public ResponseEntity<InputStreamResource> downloadHttpSource (@ModelAttribute("httpSourceModel") HttpSourceModel httpSourceModel) {
         System.out.println(httpSourceModel.toString());
         configFlume.configHttpSource(httpSourceModel);
+        compressAgent.zipDirectory();
+        File file = new java.io.File(CompressAgent.OUTPUT_ZIP_FILE);
+        InputStreamResource resource = null;
+        try {
+            resource = new InputStreamResource(new FileInputStream(file));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION,
+                        "attachment;filename=" + file.getName())
+                .contentType(MediaType.MULTIPART_FORM_DATA).contentLength(file.length())
+                .body(resource);
+    }
+
+    @PostMapping("/download/network")
+    @ResponseBody
+    public ResponseEntity<InputStreamResource> downloadFile(@ModelAttribute("networkSourceModel") NetworkSourceModel networkSourceModel) {
+
+        System.out.println(networkSourceModel.toString());
+        configFlume.configNetworkSource(networkSourceModel);
         compressAgent.zipDirectory();
         File file = new java.io.File(CompressAgent.OUTPUT_ZIP_FILE);
         InputStreamResource resource = null;

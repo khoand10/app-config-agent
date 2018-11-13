@@ -2,6 +2,7 @@ package com.nal.demoflumeagent.utils;
 
 import com.nal.demoflumeagent.model.ExecSourceModel;
 import com.nal.demoflumeagent.model.HttpSourceModel;
+import com.nal.demoflumeagent.model.NetworkSourceModel;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -12,7 +13,7 @@ import java.nio.file.Paths;
 
 public class ConfigFlume {
 
-    private String exec = "./apache-flume-1.8.0-bin/start.sh";
+    private String startString = "./apache-flume-1.8.0-bin/start.sh";
 
     public void configExecSource(ExecSourceModel execSourceModel) {
         String data = "";
@@ -45,7 +46,7 @@ public class ConfigFlume {
             }
         }
         write(fileName, content);
-        write(exec, Flume.execRun);
+        write(startString, Flume.execRun);
     }
 
     public void configHttpSource(HttpSourceModel httpSourceModel) {
@@ -79,7 +80,43 @@ public class ConfigFlume {
             }
         }
         write(fileName, content);
-        write(exec, Flume.httpRun);
+        write(startString, Flume.httpRun);
+    }
+
+    public void configNetworkSource(NetworkSourceModel networkSourceModel) {
+        String data = "";
+        String content = "";
+        String fileName = "./apache-flume-1.8.0-bin/conf/network.conf";
+        clear(fileName, Flume.DEFAUL_NETWORK);
+        try {
+            data = new String(Files.readAllBytes(Paths.get(fileName)),
+                    StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        for (String line : data.split("\n")) {
+            if (line.contains("#")) {
+                String newRow = "";
+                if (line.contains("networkName")) {
+                    newRow = line.split("#")[0] + networkSourceModel.getNetworkName() + "\n";
+                }
+                if (line.contains("listenPort")) {
+                    newRow = line.split("#")[0] + networkSourceModel.getNetworkPort() + "\n";
+                }
+                if (line.contains("topic")) {
+                    newRow = line.split("#")[0] + networkSourceModel.getTopic() + "\n";
+                }
+                if (line.contains("brokerList")) {
+                    newRow = line.split("#")[0] + networkSourceModel.getUriKafka() + "\n";
+                }
+                content += newRow;
+            } else {
+                content += line + "\n";
+            }
+        }
+        write(fileName, content);
+        write(startString, Flume.networkRun);
     }
 
     public void clear(String fileName, String defaul) {
@@ -93,7 +130,7 @@ public class ConfigFlume {
             fw.write(content);
             fw.close();
         } catch (IOException ex) {
-            System.out.println("Loi ghi file: " + ex);
+            System.out.println(": " + ex);
         }
     }
 

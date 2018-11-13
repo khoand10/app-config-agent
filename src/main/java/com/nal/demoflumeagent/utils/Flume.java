@@ -21,6 +21,7 @@ public class Flume {
             "a1.sinks.sink1.brokerList = #uri\n" +
             "a1.sinks.sink1.batchSize = 100\n" +
             "a1.sinks.sink1.channel = channel1\n";
+
     public static String DEFAUL_EXEC = "a1.sources = r1\n" +
             "a1.sinks = sink1\n" +
             "a1.channels = channel1\n" +
@@ -40,7 +41,28 @@ public class Flume {
             "a1.sinks.sink1.batchSize = 100\n" +
             "a1.sinks.sink1.channel = channel1\n";
 
+
+    public static String DEFAUL_NETWORK = "a1.sources = r1\n" +
+            "a1.sinks = sink1\n" +
+            "a1.channels = channel1\n" +
+            "a1.sources.r1.type = com.nal.source.PcapSource\n" +
+            "a1.sources.r1.networkName = #networkName\n" +
+            "a1.sources.r1.listenPort = #networkPort\n" +
+            "\n" +
+            "a1.channels.channel1.type = memory\n" +
+            "a1.channels.channel1.capacity = 10000\n" +
+            "a1.channels.channel1.transactionCapacity = 1000\n" +
+            "\n" +
+            "a1.sources.r1.channels = channel1\n" +
+            "\n" +
+            "a1.sinks.sink1.type = org.apache.flume.sink.kafka.KafkaSink\n" +
+            "a1.sinks.sink1.topic = #topicname\n" +
+            "a1.sinks.sink1.brokerList = #uri\n" +
+            "a1.sinks.sink1.batchSize = 100\n" +
+            "a1.sinks.sink1.channel = channel1\n";
+
     public static String execRun = "./bin/flume-ng agent --conf conf --conf-file conf/exec.conf  -Dflume.root.logger=DEBUG,console --name a1 -Xmx512m -Xms256m";
     public static String httpRun = "./bin/flume-ng agent --conf conf --conf-file conf/http.conf  -Dflume.root.logger=DEBUG,console --name a1 -Xmx512m -Xms256m";
+    public static String networkRun = "./bin/flume-ng agent --conf conf --conf-file conf/network.conf  -Dflume.root.logger=DEBUG,console --name a1 -Xmx512m -Xms256m";
 
 }
